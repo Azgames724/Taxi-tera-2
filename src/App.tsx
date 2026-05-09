@@ -144,14 +144,22 @@ export default function App() {
   const [showAllRoutes, setShowAllRoutes] = useState(false);
   const [activeTab, setActiveTab] = useState<'stations' | 'planner'>('stations');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('taxi_tera_splash_shown');
+    }
+    return true;
+  });
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (showSplash) {
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+        sessionStorage.setItem('taxi_tera_splash_shown', 'true');
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [showSplash]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchType, setSearchType] = useState<'origin' | 'destination'>('origin');
@@ -280,47 +288,12 @@ export default function App() {
               className="relative w-56 h-56 mb-12"
             >
               <div className="absolute inset-0 bg-white/5 rounded-full blur-3xl scale-150"></div>
-              {/* Detailed SVG Logo mimicking the provided one */}
-              <svg viewBox="0 0 200 200" className="w-full h-full relative z-10 drop-shadow-2xl">
-                <defs>
-                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFD700" />
-                    <stop offset="50%" stopColor="#FDB931" />
-                    <stop offset="100%" stopColor="#FFD700" />
-                  </linearGradient>
-                  <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#0A5A7A" />
-                    <stop offset="100%" stopColor="#063D52" />
-                  </linearGradient>
-                </defs>
-                {/* Outer Ring */}
-                <circle cx="100" cy="100" r="95" fill="none" stroke="url(#goldGrad)" strokeWidth="4" />
-                <circle cx="100" cy="100" r="88" fill="url(#blueGrad)" />
-                <circle cx="100" cy="100" r="80" fill="none" stroke="url(#goldGrad)" strokeWidth="2" strokeDasharray="4 4" />
-                
-                {/* Minibus Body */}
-                <rect x="50" y="85" width="100" height="40" rx="10" fill="#2B6CB0" stroke="white" strokeWidth="2" />
-                <path d="M50 85 Q50 75 70 75 L130 75 Q150 75 150 85" fill="white" />
-                
-                {/* Windows */}
-                <rect x="65" y="80" width="15" height="15" rx="2" fill="#87CEEB" />
-                <rect x="85" y="80" width="30" height="15" rx="2" fill="#87CEEB" />
-                <rect x="120" y="80" width="15" height="15" rx="2" fill="#87CEEB" />
-                
-                {/* Wheels */}
-                <circle cx="70" cy="125" r="8" fill="#1A202C" stroke="silver" strokeWidth="2" />
-                <circle cx="130" cy="125" r="8" fill="#1A202C" stroke="silver" strokeWidth="2" />
-                
-                {/* Ethiopian Flag Badge on Roof */}
-                <circle cx="100" cy="70" r="12" fill="none" stroke="white" strokeWidth="1" />
-                <rect x="92" y="62" width="16" height="5.3" fill="#1EB53A" />
-                <rect x="92" y="67.3" width="16" height="5.3" fill="#FCD116" />
-                <rect x="92" y="72.6" width="16" height="5.4" fill="#EF3340" />
-                
-                {/* Text along paths (Simplified for SVG rendering) */}
-                <text x="50%" y="45" textAnchor="middle" fill="#FDB931" className="text-[14px] font-bold" style={{ fontFamily: 'sans-serif' }}>ታክሲ ተራ</text>
-                <text x="50%" y="165" textAnchor="middle" fill="white" className="text-[12px] font-black tracking-widest" style={{ fontFamily: 'sans-serif' }}>TAXI TERA</text>
-              </svg>
+              <img 
+                src="https://raw.githubusercontent.com/Azgames724/Taxi-tera-2/main/image_c10d67a2-removebg-preview%20(1)%20(1)%20(1).png" 
+                alt="Taxi Tera Logo" 
+                className="w-full h-full object-contain relative z-10 drop-shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
             </motion.div>
 
             <motion.div
