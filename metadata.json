@@ -1,11 +1,8 @@
 {
-  "name": "Taxi Tera - Minibus Planner",
-  "description": "Multi-leg minibus route planner for Addis Ababa with visual map tracking and step-by-step transfer directions.",
+  "name": "Taxi Tera",
+  "description": "Transit guide for Ethiopia with route planning and navigation.",
   "requestFramePermissions": [
     "geolocation"
   ],
-  "majorCapabilities": [
-    "transportation",
-    "mapping"
-  ]
+  "majorCapabilities": []
 }
