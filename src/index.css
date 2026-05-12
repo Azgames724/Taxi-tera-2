@@ -1,58 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --color-primary: #0891b2;
-  --color-secondary: #f59e0b;
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary: #0891B2;
+  --color-primary-light: #06B6D4;
+  --color-primary-dark: #0E7490;
+  --color-primary-pale: #ECFEFF;
+  
+  --shadow-soft: 0 2px 8px rgba(0,0,0,.08), 0 4px 20px rgba(8,145,178,.1);
+  --shadow-strong: 0 4px 20px rgba(0,0,0,.12), 0 12px 40px rgba(8,145,178,.14);
 }
 
-/* Marker Cluster Styling */
-.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large {
-  background-color: rgba(14, 165, 233, 0.2) !important;
-  border-radius: 50%;
-}
-
-.marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div {
-  background-color: #0ea5e9 !important;
-  color: white !important;
-  font-family: inherit;
-  font-weight: 900;
-  font-size: 13px;
-  border: 3px solid white;
-  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #f8fafc;
+@layer base {
+  html, body, #root {
+    @apply h-full overflow-hidden antialiased bg-slate-50 text-slate-900;
+  }
 }
 
 .leaflet-container {
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  @apply bg-[#e8f4f8] w-full h-full;
 }
 
-.u-dot {
-  width: 16px;
-  height: 16px;
-  background: #3b82f6;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  animation: uPulse 2s ease-out infinite;
+@keyframes upulse {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.55); }
+  70% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
 }
 
-@keyframes uPulse {
-  0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.55); }
-  70% { box-shadow: 0 0 0 12px rgba(59,130,246,0); }
-  100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); }
+.user-dot {
+  @apply w-4 h-4 bg-blue-500 rounded-full border-3 border-white shadow-md;
+  animation: upulse 2s ease-out infinite;
 }
+
